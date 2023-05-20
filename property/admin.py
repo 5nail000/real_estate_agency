@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Flat
+from .models import Flat, Сlaim
 
 
 # admin.site.register(Flat)
@@ -14,6 +14,12 @@ class FlatAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
 
 
+class СlaimAdmin(admin.ModelAdmin):
+    list_display = ('user', 'flat', 'text')
+    raw_id_fields = ('flat',)
+
+
 admin.site.register(Flat, FlatAdmin)
+admin.site.register(Сlaim, СlaimAdmin)
 
 # '''

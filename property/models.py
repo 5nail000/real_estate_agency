@@ -1,13 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
 class Flat(models.Model):
+
     boolean_choices = (
         ('', 'Неизвестно'),
         (1, 'Да'),
         (0, 'Нет')
         )
+
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
@@ -61,3 +64,14 @@ class Flat(models.Model):
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
+class Сlaim(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    text = models.TextField(
+        'Текст жалобы',
+        help_text='Перечислите пожалуйста все аргументы, по которым Вы считаете свою жалобу обоснованой')
+
+    def __str__(self):
+        return f'{self.flat} - {self.text}'
