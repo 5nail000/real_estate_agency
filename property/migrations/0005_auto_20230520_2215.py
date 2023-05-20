@@ -8,9 +8,9 @@ def set_new_building(apps, schema_editor):
 
     for flat in flats_to_update:
         if flat.construction_year >= 2015:
-            flat.new_building = True
+            flat.new_building = 1
         else:
-            flat.new_building = False
+            flat.new_building = 0
         flat.save()
 
 

@@ -5,9 +5,9 @@ from django.utils import timezone
 class Flat(models.Model):
     boolean_choices = (
         ('', 'Неизвестно'),
-        (True, 'Да'),
-        (False, 'Нет')
-    )
+        (1, 'Да'),
+        (0, 'Нет')
+        )
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
@@ -45,7 +45,7 @@ class Flat(models.Model):
         db_index=True)
 
     has_balcony = models.BooleanField('Наличие балкона', db_index=True)
-    new_building = models.CharField(
+    new_building = models.BooleanField(
         'Новостройка',
         db_index=True,
         max_length=5,
