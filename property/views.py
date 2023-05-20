@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-
 from property.models import Flat
 
 
@@ -17,7 +16,9 @@ def show_flats(request):
     max_price = format_price(request.GET.get('max_price'))
     new_building = request.GET.get('new_building') == '1'
 
-    flats = Flat.objects.all()
+    flats = Flat.objects.filter(new_building='True') if new_building else Flat.objects.all()
+    # flats = Flat.objects.all()
+
     if town:
         flats = flats.filter(town=town)
     if min_price:

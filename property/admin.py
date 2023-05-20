@@ -5,7 +5,9 @@ from .models import Flat
 # admin.site.register(Flat)
 
 class FlatAdmin(admin.ModelAdmin):
-    list_display = ('id', 'address', 'price', 'new_building', 'construction_year', 'town')
+    list_display = (
+        'id', 'address', 'price', 'new_building', 'construction_year', 'town'
+        )
     list_editable = ('new_building',)
     list_filter = ('town', 'new_building')
     search_fields = ('town', 'address', 'owner')
