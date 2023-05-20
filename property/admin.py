@@ -9,7 +9,7 @@ class FlatAdmin(admin.ModelAdmin):
         'id', 'address', 'price', 'new_building', 'construction_year', 'town'
         )
     list_editable = ('new_building',)
-    list_filter = ('town', 'new_building')
+    list_filter = ('new_building', 'rooms_number', 'has_balcony', 'town')
     search_fields = ('town', 'address', 'owner')
     readonly_fields = ("created_at",)
 
