@@ -3,6 +3,11 @@ from django.utils import timezone
 
 
 class Flat(models.Model):
+    boolean_choices = (
+        ('', 'Неизвестно'),
+        (True, 'Да'),
+        (False, 'Нет')
+    )
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
@@ -39,7 +44,14 @@ class Flat(models.Model):
         blank=True,
         db_index=True)
 
-    has_balcony = models.NullBooleanField('Наличие балкона', db_index=True)
+    has_balcony = models.BooleanField('Наличие балкона', db_index=True)
+    new_building = models.CharField(
+        'Новостройка',
+        db_index=True,
+        max_length=5,
+        choices=boolean_choices,
+        null=True,
+        blank=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
     construction_year = models.IntegerField(
         'Год постройки здания',
