@@ -5,12 +5,6 @@ from django.utils import timezone
 
 class Flat(models.Model):
 
-    boolean_choices = (
-        ('', 'Неизвестно'),
-        (1, 'Да'),
-        (0, 'Нет')
-        )
-
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
@@ -52,7 +46,6 @@ class Flat(models.Model):
         'Новостройка',
         db_index=True,
         max_length=5,
-        choices=boolean_choices,
         null=True,
         blank=True)
     active = models.BooleanField('Активно-ли объявление', db_index=True)
@@ -61,6 +54,11 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
+    liked_by = models.ManyToManyField(
+        User,
+        through='Like',
+        related_name='liked_flats'
+        )
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
@@ -75,3 +73,11 @@ class Сlaim(models.Model):
 
     def __str__(self):
         return f'{self.flat} - {self.text}'
+
+
+class Like(models.Model):
+    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'flat')
