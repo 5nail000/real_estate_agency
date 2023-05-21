@@ -3,8 +3,6 @@ from .models import Flat, Сlaim, Like
 
 
 class LikeInline(admin.TabularInline):
-    # или admin.StackedInline для вертикального отображения
-
     model = Like
     extra = 0
     raw_id_fields = ('user',)
